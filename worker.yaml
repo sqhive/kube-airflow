@@ -16,11 +16,11 @@ spec:
       restartPolicy: Always
       containers:
         - name: worker
-          image: mumoshu/kube-airflow:1.8.0.0-1.6.1
+          image: gcr.io/sqhive-backend/airflow:latest
+          args: [ "worker" ]
           env:
             - name: AIRFLOW_HOME
               value: "/usr/local/airflow"
-          args: ["worker"]
           volumeMounts:
             - mountPath: /usr/local/airflow/dags
               name: airflow-dags

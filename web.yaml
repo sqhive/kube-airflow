@@ -16,14 +16,14 @@ spec:
       restartPolicy: Always
       containers:
         - name: web
-          image: mumoshu/kube-airflow:1.8.0.0-1.6.1
+          image: gcr.io/sqhive-backend/airflow:latest
+          args: [ "webserver" ]
           env:
           - name: AIRFLOW_HOME
             value: "/usr/local/airflow"
           ports:
           - name: web
             containerPort: 8080
-          args: ["webserver"]
           volumeMounts:
             - mountPath: /usr/local/airflow/dags
               name: airflow-dags
