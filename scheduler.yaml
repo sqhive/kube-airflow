@@ -26,6 +26,8 @@ spec:
               name: airflow-dags
             - mountPath: /usr/local/airflow/logs
               name: airflow-logs
+            - mountPath: /flink
+              name: nfs-flink
       volumes:
         - name: airflow-dags
           persistentVolumeClaim:
@@ -33,3 +35,6 @@ spec:
         - name: airflow-logs
           persistentVolumeClaim:
             claimName: nfs-airflow-logs
+        - name: nfs-flink
+          persistentVolumeClaim:
+            claimName: nfs-flink-airflow
