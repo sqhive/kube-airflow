@@ -17,6 +17,7 @@ spec:
       containers:
         - name: worker
           image: gcr.io/sqhive-backend/airflow:latest
+          imagePullPolicy: Always
           args: [ "worker" ]
           env:
             - name: AIRFLOW_HOME
@@ -24,7 +25,12 @@ spec:
           volumeMounts:
             - mountPath: /usr/local/airflow/dags
               name: airflow-dags
+            - mountPath: /usr/local/airflow/logs
+              name: airflow-logs
       volumes:
         - name: airflow-dags
           persistentVolumeClaim:
             claimName: nfs-airflow-dags
+        - name: airflow-logs
+          persistentVolumeClaim:
+            claimName: nfs-airflow-logs

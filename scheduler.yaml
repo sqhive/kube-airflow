@@ -17,14 +17,20 @@ spec:
       containers:
         - name: scheduler
           image: gcr.io/sqhive-backend/airflow:latest
+          imagePullPolicy: Always
+          args: [ "scheduler", "-n", "5" ]
           env:
             - name: AIRFLOW_HOME
               value: "/usr/local/airflow"
-          args: [ "scheduler", "-n", "5" ]
           volumeMounts:
             - mountPath: /usr/local/airflow/dags
               name: airflow-dags
+            - mountPath: /usr/local/airflow/logs
+              name: airflow-logs
       volumes:
         - name: airflow-dags
           persistentVolumeClaim:
             claimName: nfs-airflow-dags
+        - name: airflow-logs
+          persistentVolumeClaim:
+            claimName: nfs-airflow-logs

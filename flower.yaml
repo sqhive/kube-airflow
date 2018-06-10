@@ -17,12 +17,25 @@ spec:
       containers:
         - name: flower
           image: gcr.io/sqhive-backend/airflow:latest
+          imagePullPolicy: Always
           args: [ "flower" ]
           env:
             - name: AIRFLOW_HOME
               value: "/usr/local/airflow"
             - name: FLOWER_PORT
               value: "5555"
+          volumeMounts:
+            - mountPath: /usr/local/airflow/dags
+              name: airflow-dags
+            - mountPath: /usr/local/airflow/logs
+              name: airflow-logs
           ports:
             - name: flower
               containerPort: 5555
+      volumes:
+        - name: airflow-dags
+          persistentVolumeClaim:
+            claimName: nfs-airflow-dags
+        - name: airflow-logs
+          persistentVolumeClaim:
+            claimName: nfs-airflow-logs
