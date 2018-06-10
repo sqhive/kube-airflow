@@ -17,7 +17,6 @@ spec:
       containers:
         - name: scheduler
           image: gcr.io/sqhive-backend/airflow:latest
-          imagePullPolicy: Always
           args: [ "scheduler", "-n", "5" ]
           env:
             - name: AIRFLOW_HOME
